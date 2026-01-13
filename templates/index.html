@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+  <section class="card">
+    <h2>Welcome to the Cookie Circus</h2>
+    <p>
+      This silly site shows how cookies keep HTTP state. The login cookie here is just a
+      hash of <strong>username:password</strong> and is used as your session key. No server-side
+      database, no magic.
+    </p>
+    {% if current_user %}
+      <p class="notice">
+        You're logged in as <strong>{{ current_user }}</strong>. You can visit the lounge and the secret page.
+      </p>
+    {% else %}
+      <p class="notice">
+        You're not logged in yet. Head to the login page, then explore the lounge and secret page.
+      </p>
+    {% endif %}
+  </section>
+
+  <section class="card">
+    <h2>Why this is risky</h2>
+    <p>
+      Cookies are like tiny ID badges. If someone copies your badge, they can walk around as you.
+      Check the Post Board to see someone leaking theirs.
+    </p>
+  </section>
+
+  {% if session_cookie %}
+    <section class="card">
+      <h2>Your current cookie</h2>
+      <div class="code-box">{{ session_cookie }}</div>
+    </section>
+  {% endif %}
+{% endblock %}

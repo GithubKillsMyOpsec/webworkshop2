@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+  <section class="card">
+    <h2>The Lounge</h2>
+    <p>
+      Welcome, {{ current_user }}. You're seeing this page because your browser sent a cookie
+      with every request. That's HTTP state in action.
+    </p>
+    <p>
+      If someone steals that cookie, they stroll right in here as you.
+    </p>
+  </section>
+{% endblock %}

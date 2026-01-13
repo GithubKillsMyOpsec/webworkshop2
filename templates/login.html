@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+  <section class="card">
+    <h2>Log in to the cookie jar</h2>
+    <p>
+      This demo only hashes your username + password and drops it into a cookie.
+      It's intentionally flimsy so you can see how cookie stealing works.
+    </p>
+    {% if error %}
+      <p class="notice">{{ error }}</p>
+    {% endif %}
+    <form method="post">
+      <div class="form-field">
+        <label for="username">Username</label>
+        <input id="username" name="username" type="text" autocomplete="off" required />
+      </div>
+      <div class="form-field">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" required />
+      </div>
+      <button type="submit">Bake cookie</button>
+    </form>
+  </section>
+{% endblock %}

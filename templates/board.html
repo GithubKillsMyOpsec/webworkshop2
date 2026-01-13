@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+  <section class="card">
+    <h2>Post Board</h2>
+    <p>
+      People post messages here. One person accidentally pasted their cookie. Oops.
+    </p>
+  </section>
+
+  <section class="card">
+    <span class="tag">New Post</span>
+    <h2>{{ board_user }} says:</h2>
+    <p>
+      "I totally trust you all! Here's my cookie. It expires 5 minutes from when I posted it
+      ({{ minutes_left }} minutes and {{ seconds_left }} seconds left). If you want in, paste it into your browser."
+    </p>
+    <div class="code-box">{{ board_cookie }}</div>
+    <p>
+      Expiration time: <strong>{{ board_expires_at }}</strong>
+    </p>
+    <p class="notice">
+      Try it: Open DevTools &gt; Application/Storage &gt; Cookies and set the
+      <strong>demo_session</strong> cookie to this value, then refresh the secret page.
+    </p>
+  </section>
+{% endblock %}
