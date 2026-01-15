@@ -11,13 +11,13 @@ pip install -r requirements.txt
 python app.py
 ```
 
-Visit http://localhost:5000
+Visit http://localhost:8081
 
 ## Run with Docker
 
 ```bash
 docker build -t webworkshop2 .
-docker run --rm -p 5000:5000 webworkshop2
+docker run --rm -p 8081:8081 webworkshop2
 ```
 
 ## Demo idea

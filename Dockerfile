@@ -9,6 +9,6 @@ COPY . /app
 
 ENV FLASK_ENV=production
 
-EXPOSE 5000
+EXPOSE 8081
 
 CMD ["python", "app.py"]
