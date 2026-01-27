@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ title or "Cookie Heist Board" }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='ctf.css') }}" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="brand">Cookie Heist Board</div>
+      <nav class="nav-links">
+        <a href="{{ url_for('home') }}">Briefing</a>
+        <a href="{{ url_for('board') }}">My Board</a>
+        {% if current_user %}
+          <span class="user-chip">{{ current_user }}</span>
+          <a href="{{ url_for('logout') }}">Log out</a>
+        {% else %}
+          <a href="{{ url_for('login') }}">Log in</a>
+        {% endif %}
+      </nav>
+    </header>
+
+    <main class="content">
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+      This web app is intentionally vulnerable.
+    </footer>
+  </body>
+</html>

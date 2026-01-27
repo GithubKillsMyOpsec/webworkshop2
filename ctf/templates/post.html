@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+  <section class="card">
+    <h2>Post #{{ post.id }}</h2>
+    <div class="muted">Created {{ format_ts(post.created_at) }}</div>
+    <div class="post-body">{{ post.content | safe }}</div>
+    <div class="post-actions">
+      <a class="ghost" href="{{ url_for('board') }}">Back to board</a>
+      <form method="post" action="{{ url_for('report_post', post_id=post.id) }}">
+        <button type="submit">Report to bot</button>
+      </form>
+    </div>
+  </section>
+{% endblock %}

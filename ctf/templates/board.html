@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block content %}
+  <section class="card">
+    <h2>Your private board</h2>
+    <p>
+      Only you can see these posts. The review bot will visit a reported post with its
+      <strong>ctf_flag</strong> cookie set.
+    </p>
+    <p class="notice">
+      Cookies here are not HttpOnly, which is unsafe because injected JavaScript can read and steal them.
+    </p>
+  </section>
+
+  <section class="card">
+    <h2>Drop a new post</h2>
+    <form method="post" action="{{ url_for('create_post') }}" class="form">
+      <label class="form-field">
+        <span>HTML ({{ post_max_length }} chars max)</span>
+        <textarea name="content" rows="6" maxlength="{{ post_max_length }}" placeholder="&lt;script&gt;alert(document.cookie)&lt;/script&gt;"></textarea>
+      </label>
+      <button type="submit">Publish post</button>
+    </form>
+  </section>
+
+  <section class="card">
+    <h2>Your posts</h2>
+    {% if posts %}
+      <div class="post-list">
+        {% for post in posts %}
+          <article class="post">
+            <header class="post-meta">
+              <div>Post #{{ post.id }}</div>
+              <div class="muted">Created {{ format_ts(post.created_at) }}</div>
+            </header>
+            <div class="post-body">{{ post.content | safe }}</div>
+            <div class="post-actions">
+              <a class="ghost" href="{{ url_for('view_post', post_id=post.id) }}">Open post</a>
+              <form method="post" action="{{ url_for('report_post', post_id=post.id) }}">
+                <button type="submit">Report to bot</button>
+              </form>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="muted">No posts yet. Create one above.</p>
+    {% endif %}
+  </section>
+
+  <section class="card">
+    <h2>Reports</h2>
+    {% if reports %}
+      <div class="report-list">
+        {% for report in reports %}
+          <div class="report">
+            <div class="report-head">
+              <strong>Report #{{ report.id }}</strong>
+              <span class="status status-{{ report.status }}">{{ report.status }}</span>
+            </div>
+            <div class="muted">Post #{{ report.post_id }} · submitted {{ format_ts(report.created_at) }}</div>
+            {% if report.visited_at %}
+              <div class="muted">Visited {{ format_ts(report.visited_at) }}</div>
+            {% endif %}
+            {% if report.error %}
+              <div class="notice error">{{ report.error }}</div>
+            {% endif %}
+            {% set debug_lines = report_debug.get(report.id, []) %}
+            {% if debug_enabled and debug_lines %}
+              <div class="debug-box">
+                <div class="muted">Bot debug (cookie values are never logged):</div>
+                <ul class="debug-list">
+                  {% for entry in debug_lines %}
+                    <li>{{ format_ts(entry.created_at) }} · {{ entry.message }}</li>
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endif %}
+            <div class="muted">Point your payload at your own collector to catch the bot cookie.</div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="muted">No reports yet. Report a post to summon the bot.</p>
+    {% endif %}
+  </section>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+  <section class="card">
+    <h2>Log in</h2>
+    <p>Create a new account or return to an existing one.</p>
+    {% if error %}
+      <div class="notice error">{{ error }}</div>
+    {% endif %}
+    <form method="post" class="form">
+      <label class="form-field">
+        <span>Username</span>
+        <input type="text" name="username" autocomplete="username" />
+      </label>
+      <label class="form-field">
+        <span>Password</span>
+        <input type="password" name="password" autocomplete="current-password" />
+      </label>
+      <button type="submit">Enter the board</button>
+    </form>
+  </section>
+{% endblock %}

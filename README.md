@@ -1,30 +1,20 @@
 # Web Workshop 2
 
-A silly, intentionally insecure Flask app that shows how cookies give HTTP state. It includes a "Post Board" where someone leaks their cookie every 5 minutes.
+Contains two applications.
 
-## Run locally
+ - A silly, intentionally insecure Flask app that shows how cookies give HTTP state. It includes a "Post Board" where someone leaks their cookie every 5 minutes.
+ - Another silly insecure flask app which has an XSS vuln. The insecure nature of the cookies make them able to be stolen with XSS. 
 
-```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-python app.py
-```
-
-Visit http://localhost:8081
-
-## Run with Docker
+## Run with Docker Compose (workshop + CTF)
 
 ```bash
-docker build -t webworkshop2 .
-docker run --rm -p 8081:8081 webworkshop2
+docker compose up --build
 ```
 
-## Demo idea
+Visit http://localhost:8081 for the cookie demo.
+Visit http://localhost:8082 for the XSS cookie-heist challenge.
 
-1. Log in with any username/password.
-2. Visit the Post Board and copy the leaked cookie value.
-3. Paste it into your browser cookies as `demo_session`.
-4. Refresh the Secret page to see you're logged in as the poster.
+The CTF service includes a headless Firefox bot that reviews reported posts. The container
+is read-only, uses a tmpfs `/tmp`, and disables downloads in the browser profile. The demo
+expects players to run their own cookie collector endpoint.
 
-This is a teaching demo. Do not build real auth like this.

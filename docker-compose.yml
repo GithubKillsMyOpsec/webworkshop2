@@ -1,0 +1,24 @@
+services:
+  workshop:
+    build: ./workshop
+    ports:
+      - "8081:8081"
+
+  ctf:
+    build: ./ctf
+    ports:
+      - "8082:8082"
+    environment:
+      CTF_FLAG: "magpieworkshop{n0_secur3_fl4g_0n_yuor_c00k1e}"
+      BOT_USERNAME: "moderator"
+      BOT_PASSWORD: "moderator-pass"
+      BOT_VISIT_SECONDS: "6"
+      BOT_PAGELOAD_TIMEOUT: "8"
+      BOT_DEBUG: "false"
+      CTF_BASE_URL: "http://127.0.0.1:8082"
+    read_only: true
+    tmpfs:
+      - /tmp
+    shm_size: "1g"
+    security_opt:
+      - no-new-privileges:true

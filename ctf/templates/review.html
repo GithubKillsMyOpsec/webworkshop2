@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+  <section class="card">
+    <h2>Automated report review</h2>
+    <div class="muted">Report #{{ report_id }} · Post #{{ post.id }}</div>
+    <div id="report" data-report-id="{{ report_id }}"></div>
+    <div class="post-body">{{ post.content | safe }}</div>
+  </section>
+{% endblock %}

